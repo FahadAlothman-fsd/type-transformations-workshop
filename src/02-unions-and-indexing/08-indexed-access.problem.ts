@@ -8,16 +8,17 @@ export const fakeDataDefaults = {
   ID: "id",
 };
 
-export type StringType = unknown;
-export type IntType = unknown;
-export type FloatType = unknown;
-export type BooleanType = unknown;
-export type IDType = unknown;
+export type fakeDataDefaultsType = typeof fakeDataDefaults;
+export type StringType = fakeDataDefaultsType["String"];
+export type IntType = fakeDataDefaultsType["Int"];
+export type FloatType = fakeDataDefaultsType["Float"];
+export type BooleanType = fakeDataDefaultsType["Boolean"];
+export type IDType = fakeDataDefaultsType["ID"];
 
 type tests = [
   Expect<Equal<StringType, string>>,
   Expect<Equal<IntType, number>>,
   Expect<Equal<FloatType, number>>,
   Expect<Equal<BooleanType, boolean>>,
-  Expect<Equal<IDType, string>>,
+  Expect<Equal<IDType, string>>
 ];
