@@ -12,7 +12,15 @@ type Route =
   | { route: "/admin"; search: {} }
   | { route: "/admin/users"; search: {} };
 
-type RoutesObject = unknown;
+type RoutesObject = {
+  [R in Route["route"]]: Extract<Route, { route: R }>["search"];
+};
+
+// or
+
+type RoutesObject2 = {
+  [R in Route as R["route"]]: R["search"];
+};
 
 type tests = [
   Expect<
@@ -29,4 +37,19 @@ type tests = [
       }
     >
   >,
+  // alternative test
+  Expect<
+    Equal<
+      RoutesObject2,
+      {
+        "/": {
+          page: string;
+          perPage: string;
+        };
+        "/about": {};
+        "/admin": {};
+        "/admin/users": {};
+      }
+    >
+  >
 ];
